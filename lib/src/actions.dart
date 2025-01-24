@@ -25,6 +25,7 @@ class CustomSlidableAction extends StatelessWidget {
     this.autoClose = _kAutoClose,
     this.borderRadius = BorderRadius.zero,
     this.padding,
+    this.borderSide = BorderSide.none,
     required this.onPressed,
     required this.child,
   }) : assert(flex > 0);
@@ -74,6 +75,13 @@ class CustomSlidableAction extends StatelessWidget {
   /// {@endtemplate}
   final BorderRadius borderRadius;
 
+  /// {@template slidable.actions.borderSide}
+  /// The borderSide of this action
+  ///
+  /// Defaults to [BorderSide.none].
+  /// {@endtemplate}
+  final BorderSide borderSide;
+  
   /// {@template slidable.actions.padding}
   /// The padding of the OutlinedButton
   /// {@endtemplate}
@@ -106,7 +114,7 @@ class CustomSlidableAction extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: borderRadius,
             ),
-            side: BorderSide.none,
+            side: borderSide,
           ),
           child: child,
         ),
@@ -143,6 +151,8 @@ class SlidableAction extends StatelessWidget {
     this.spacing = 4,
     this.label,
     this.borderRadius = BorderRadius.zero,
+    this.borderSide = BorderSide.none,
+    this.iconWidget,
     this.padding,
   })  : assert(flex > 0),
         assert(icon != null || label != null);
@@ -156,6 +166,12 @@ class SlidableAction extends StatelessWidget {
   /// {@macro slidable.actions.foregroundColor}
   final Color? foregroundColor;
 
+  /// An icon widget to display above the [label].
+  final Widget? iconWidget;
+  
+  /// The borderSide of this action
+  final BorderSide borderSide;
+  
   /// {@macro slidable.actions.autoClose}
   final bool autoClose;
 
@@ -185,7 +201,7 @@ class SlidableAction extends StatelessWidget {
 
     if (icon != null) {
       children.add(
-        Icon(icon),
+       iconWidget ??  Icon(icon),
       );
     }
 
@@ -220,6 +236,7 @@ class SlidableAction extends StatelessWidget {
     return CustomSlidableAction(
       borderRadius: borderRadius,
       padding: padding,
+      borderSide: borderSide,
       onPressed: onPressed,
       autoClose: autoClose,
       backgroundColor: backgroundColor,
